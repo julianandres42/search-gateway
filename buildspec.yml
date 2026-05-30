@@ -5,13 +5,14 @@ phases:
       python: 3.10
     commands:
       - echo "Installing dependencies..."
+      - pip install -r requirements.txt -t package/
   build:
     commands:
       - echo "Preparing ZIP file..."
-        - cp *.py package/
-        - cd package
-        - zip -r ../deployment.zip .
-        - cd ..
+      - cp *.py package/
+      - cd package
+      - zip -r ../deployment.zip .
+      - cd ..
   post_build:
     commands:
       - echo "Deploying a AWS Lambda..."
