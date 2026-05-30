@@ -3,12 +3,17 @@ phases:
   install:
     runtime-versions:
       python: 3.10
+    commands:
+      - echo "Installing dependencies..."
+      - pip install -r requirements.txt -t package/
   build:
     commands:
-      - aws cloudformation package --template-file search-gateway.yaml --s3-bucket artifacts-bucket-gl --output-template-file search.yaml
-
-artifacts:
-  type: zip
-  files:
-    - search-gateway.yaml
-    - search.yaml
+      - echo "Preparing ZIP file..."
+      - cd package
+      - zip -r ../deployment.zip .
+      - cd ..
+      - zip -g deployment.zip lambda_function.py
+  post_build:
+    commands:
+      - echo "Deploying a AWS Lambda..."
+      - aws lambda update-function-code --function-name search-gateway --zip-file fileb://deployment.zip
