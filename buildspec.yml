@@ -5,6 +5,7 @@ phases:
       python: 3.10
     commands:
       - echo "Installing dependencies..."
+      - apt-get update -y && apt-get install -y zip
       - pip install -r requirements.txt -t package/
   build:
     commands:
