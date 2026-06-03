@@ -72,7 +72,7 @@ def searchhome():
 
 		$(document).ready(function() {
 			$("#home").attr('href', '/');
-			$("#searchForm").attr('action', '/search');
+			$("#searchForm").attr('action', '/search-gateway');
 		});
 
 		$("#searchForm").submit(function(e) {
